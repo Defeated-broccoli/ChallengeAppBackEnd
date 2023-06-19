@@ -1,0 +1,60 @@
+﻿@page "/Challenge"
+@page "/Challenge/{Id:int}"
+@inject IChallengeRepository ChallengeRepository;
+@inject NavigationManager NavigationManager;
+
+@if(Id == null)
+{
+    <PageTitle>Create New Challenge</PageTitle>
+    <h3>Create New Challenge</h3>
+}
+else
+{
+    <PageTitle>Edit a Challenge</PageTitle>
+    <h3>Edit a Challenge</h3>
+}
+
+<EditForm Model="challenge" OnSubmit="HandleSubmit">
+    <div>
+        <label for="text">Text</label>
+        <InputText id="text" @bind-Value="challenge.Text" class="form-control"></InputText>
+    </div>
+    <button type="submit">@buttonText</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    Challenge challenge = new Challenge();
+
+    string buttonText = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        buttonText = Id == null ? "Save new Challenge" : "Update a Challenge";
+
+        if(Id != null)
+        {
+            challenge = await ChallengeRepository.GetChallengeById((int)Id);
+        }
+    }
+
+    public async Task HandleSubmit()
+    {
+        if(challenge is not null)
+        {
+            if(Id == null)
+            {
+                var result = ChallengeRepository.Add(challenge);
+                NavigationManager.NavigateTo("/");
+            }
+            else
+            {
+                var result = ChallengeRepository.Update(challenge);
+                NavigationManager.NavigateTo("/");
+            }
+
+        }
+    }
+}

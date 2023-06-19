@@ -1,9 +1,28 @@
-﻿<p>
+﻿@inject IChallengeRepository ChallengeRepository;
+@inject NavigationManager NavigationManager;
+
+<p>
     @challenge.Id
     @challenge.Text
+    <button class="oi oi-tablet" @onclick="(() => UpdateChallenge(challenge.Id))">Update</button>
+    <button class="oi oi-delete" @onclick="DeleteChallenge">Delete</button>
 </p>
 
 @code {
     [Parameter]
     public Challenge challenge { get; set; }
+
+    public async Task DeleteChallenge()
+    {
+        var result = ChallengeRepository.Delete(challenge);
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+
+    public void UpdateChallenge(int id)
+    {
+        NavigationManager.NavigateTo($"/Challenge/{id}");
+    }
 }

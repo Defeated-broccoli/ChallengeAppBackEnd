@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject IChallengeRepository ChallengeReposiory
+@inject NavigationManager NavigationManager;
 
 @if (Challenges == null)
 {
@@ -15,7 +16,7 @@ else
     </ul>
 }
 
-<button onclick="GenerateNewChallenge">Get a new Challenge</button>
+<button class="oi oi-pencil" @onclick="CreateNewChallenge">Create New Challange</button>
 
 
 @code {
@@ -26,8 +27,8 @@ else
         Challenges = await ChallengeReposiory.GetAllChallenges();
     }
 
-    public async Task GenerateNewChallenge()
+    public void CreateNewChallenge()
     {
-        
+        NavigationManager.NavigateTo("/Challenge");
     }
 }

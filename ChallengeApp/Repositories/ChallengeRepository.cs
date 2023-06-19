@@ -42,7 +42,7 @@ namespace ChallengeApp.Repositories
 
 		public bool Save()
 		{
-			return _dbContext.SaveChanges() > 0;
+			return _dbContext.SaveChanges() > 0 ? true : false;
 		}
 
 		public bool Update(Challenge challenge)
