@@ -1,8 +1,10 @@
-﻿namespace ChallengeApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChallengeApp.Models
 {
 	public class Challenge
 	{
-        [PrimaryKey]
+        [Key]
         public int Id { get; set; }
         public string Text { get; set; }
     }
