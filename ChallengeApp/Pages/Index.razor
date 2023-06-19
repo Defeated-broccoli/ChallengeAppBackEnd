@@ -1,0 +1,33 @@
+﻿@page "/"
+@inject IChallengeRepository ChallengeReposiory
+
+@if (Challenges == null)
+{
+    <h3>Loading...</h3>
+}
+else
+{
+    <ul>
+        @foreach (var challenge in Challenges)
+        {
+            <ChallengeComponent challenge="challenge"></ChallengeComponent>
+        }
+    </ul>
+}
+
+<button onclick="GenerateNewChallenge">Get a new Challenge</button>
+
+
+@code {
+    List<Challenge> Challenges = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Challenges = await ChallengeReposiory.GetAllChallenges();
+    }
+
+    public async Task GenerateNewChallenge()
+    {
+        
+    }
+}

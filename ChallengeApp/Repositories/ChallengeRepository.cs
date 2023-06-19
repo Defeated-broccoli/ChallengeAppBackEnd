@@ -30,7 +30,12 @@ namespace ChallengeApp.Repositories
 			return await _dbContext.Challenges.ToListAsync();
 		}
 
-		public async Task<Challenge> GetChallengeById(int id)
+        public Task<List<Challenge>> GetAllChallengesByAppUser(AppUser appUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Challenge> GetChallengeById(int id)
 		{
 			return await _dbContext.Challenges.FirstOrDefaultAsync(c => c.Id == id);
 		}

@@ -1,4 +1,6 @@
 using ChallengeApp.Data;
+using ChallengeApp.Interfaces;
+using ChallengeApp.Repositories;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,8 @@ namespace ChallengeApp
 			// Add services to the container.
 			builder.Services.AddRazorPages();
 			builder.Services.AddServerSideBlazor();
+			builder.Services.AddScoped<IChallengeRepository, ChallengeRepository>();
+
 
 			builder.Services.AddDbContext<ApplicationDbContext>(options =>
 			{
