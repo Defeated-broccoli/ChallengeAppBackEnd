@@ -7,47 +7,42 @@ namespace ChallengeApp.Repositories
 {
 	public class ChallengeRepository : IChallengeRepository
 	{
-		private readonly ApplicationDbContext _dbContext;
+		private readonly ApplicationDbContext _context;
 
 		public ChallengeRepository(ApplicationDbContext dbContext)
         {
-			_dbContext = dbContext;
+            _context = dbContext;
 		}
         public bool Add(Challenge challenge)
 		{
-			_dbContext.Challenges.Add(challenge);
+            _context.Challenges.Add(challenge);
 			return Save();
 		}
 
 		public bool Delete(Challenge challenge)
 		{
-			_dbContext.Challenges.Remove(challenge);
+            _context.Challenges.Remove(challenge);
 			return Save();
 		}
 
 		public async Task<List<Challenge>> GetAllChallenges()
 		{
-			return await _dbContext.Challenges.ToListAsync();
+			return await _context.Challenges.ToListAsync();
 		}
-
-        public Task<List<Challenge>> GetAllChallengesByAppUser(AppUser appUser)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<Challenge> GetChallengeById(int id)
 		{
-			return await _dbContext.Challenges.FirstOrDefaultAsync(c => c.Id == id);
+			return await _context.Challenges.FirstOrDefaultAsync(c => c.Id == id);
 		}
 
 		public bool Save()
 		{
-			return _dbContext.SaveChanges() > 0 ? true : false;
+			return _context.SaveChanges() > 0 ? true : false;
 		}
 
 		public bool Update(Challenge challenge)
 		{
-			_dbContext.Challenges.Update(challenge);
+            _context.Challenges.Update(challenge);
 			return Save();
 		}
 	}
